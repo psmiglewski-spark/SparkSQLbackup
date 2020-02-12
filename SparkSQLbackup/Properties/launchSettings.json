@@ -1,0 +1,7 @@
+{
+  "profiles": {
+    "SparkSQLbackup": {
+      "commandName": "Project"
+    }
+  }
+}
