@@ -11,7 +11,7 @@ namespace SparkSQLbackup
         private string connectionString ;
         private string path ;
         private string dataBaseName;
-        private string installationPath;
+        //private string installationPath;
 
         //public Setup(string _connectionString, string _path)
         // {
@@ -25,11 +25,31 @@ namespace SparkSQLbackup
             try
             {
                 List<string> list = new List<string>();
-               // var filestream = new System.IO.FileStream(_filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-               // var file = new System.IO.StreamReader(filestream, System.Text.Encoding.UTF8, true, 128);
+                // var filestream = new System.IO.FileStream(_filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
+                // var file = new System.IO.StreamReader(filestream, System.Text.Encoding.UTF8, true, 128);
+                string[] Name = { " " };
 
-
-                string[] Name = File.ReadAllLines(_filePath, Encoding.Default);
+                try
+                {
+                   Name = File.ReadAllLines(_filePath, Encoding.Default);
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.ToString());
+                    File.WriteAllText(Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString() + ".txt", exc.ToString());
+                    string logPath = Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                    try
+                    {
+                        Email email = new Email();
+                        email.SendEmail(logPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine(ex.ToString());
+                        
+                    }
+                  //  Console.ReadLine();
+                }
                 for (int i = 0; i < Name.Length; i++)
                 {
                     list.Add(Name[i]);
@@ -38,14 +58,24 @@ namespace SparkSQLbackup
                 this.connectionString = list[0];
                 this.path = list[1];
                 this.dataBaseName = list[2];
-                this.installationPath = list[3];
+                //this.installationPath = list[3];
             }
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                File.WriteAllText(Directory.GetCurrentDirectory() + "faillog" + DateTime.Now.ToString() + ".txt", ex.ToString());
-                
-                Console.ReadKey();
+                File.WriteAllText(Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString() + ".txt", ex.ToString());
+                string logPath = Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                try
+                {
+                    Email email = new Email();
+                    email.SendEmail(logPath);
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.ToString());
+
+                }
+                //  Console.ReadKey();
             }
         }
 
@@ -63,7 +93,7 @@ namespace SparkSQLbackup
         }
         public string GetInstallationPath()
         {
-            return installationPath;
+            return System.IO.Directory.GetCurrentDirectory();
         }
        
     }

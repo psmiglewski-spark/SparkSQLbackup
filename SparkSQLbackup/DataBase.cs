@@ -20,7 +20,26 @@ namespace SparkSQLbackup
         {
             
             Setup setup = new Setup();
-            setup.SetBackupProperties(System.IO.Directory.GetCurrentDirectory() + "\\config.ini");
+            try
+            {
+                setup.SetBackupProperties(System.IO.Directory.GetCurrentDirectory() + "\\config.ini");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                string logPath = setup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                File.WriteAllText(logPath, ex.ToString());
+                try
+                {
+                    Email email = new Email();
+                    email.SendEmail(logPath);
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.ToString());
+                }
+              //  Console.ReadLine();
+            }
             Console.WriteLine("Tworzenie backup bazy. Proszę czekać");
             try
             {
@@ -50,7 +69,7 @@ namespace SparkSQLbackup
                 {
                     Console.WriteLine(exc.ToString());
                 }
-                Console.ReadLine();
+               // Console.ReadLine();
             }
             Console.WriteLine("Zakończono tworzenie backup bazy");
 

@@ -9,12 +9,49 @@ namespace SparkSQLbackup
     {
         static void Main(string[] args)
         {
-            
-            var path = System.IO.Directory.GetCurrentDirectory() + "\\config.ini";//Path.Combine(Directory.GetCurrentDirectory(), "\\config.ini");
-           
-           // string _filePath = path;//"C:\\Temp\\"+ dataBaseName + DateTime.Now.ToString("yyMMddhhmm") + ".bak";
+            string path = " ";
             Setup configSetup = new Setup();
-            configSetup.SetBackupProperties(path);
+            try
+            {
+                path = System.IO.Directory.GetCurrentDirectory() + "\\config.ini";//Path.Combine(Directory.GetCurrentDirectory(), "\\config.ini");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                string logPath = configSetup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                File.WriteAllText(logPath, ex.ToString());
+                try
+                {
+                    Email email = new Email();
+                    email.SendEmail(logPath);
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.ToString());
+                }
+               // Console.ReadLine();
+            }
+            // string _filePath = path;//"C:\\Temp\\"+ dataBaseName + DateTime.Now.ToString("yyMMddhhmm") + ".bak";
+            try
+            {
+                configSetup.SetBackupProperties(path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                string logPath = configSetup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                File.WriteAllText(logPath, ex.ToString());
+                try
+                {
+                    Email email = new Email();
+                    email.SendEmail(logPath);
+                }
+                catch (Exception exc)
+                {
+                    Console.WriteLine(exc.ToString());
+                }
+             //   Console.ReadLine();
+            }
             string dataBaseName = configSetup.GetDataBaseName();
             DataBase dataBase = new DataBase(configSetup.GetConnectionString());
             try
@@ -34,7 +71,7 @@ namespace SparkSQLbackup
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                string logPath = configSetup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                string logPath = Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
                 File.WriteAllText(logPath, ex.ToString());
                 try
                 {
@@ -46,7 +83,7 @@ namespace SparkSQLbackup
                     Console.WriteLine(exc.ToString());
                 }
 
-                Console.ReadLine();
+              //  Console.ReadLine();
             }
           
         }
