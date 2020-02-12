@@ -19,7 +19,7 @@ namespace SparkSQLbackup
             DataBase dataBase = new DataBase(configSetup.GetConnectionString());
             try
             {
-                // dataBase.dbBackupAction("BACKUP DATABASE SparkIM TO DISK = 'c:\\temp\\bak.bak' ");
+                
                 string plikBazy = configSetup.GetPath() + dataBaseName + DateTime.Now.ToString("yyMMddhhmm") + ".bak";
                 dataBase.dbBackupAction("BACKUP DATABASE " + dataBaseName + " TO DISK =" + "'" + plikBazy + "'" );
                 
