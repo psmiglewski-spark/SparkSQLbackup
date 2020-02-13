@@ -38,7 +38,8 @@ namespace SparkSQLbackup
                 {
                     Console.WriteLine(exc.ToString());
                 }
-              //  Console.ReadLine();
+                //  Console.ReadLine();
+                System.Environment.Exit(0);
             }
             Console.WriteLine("Tworzenie backup bazy. Proszę czekać");
             try
@@ -69,7 +70,8 @@ namespace SparkSQLbackup
                 {
                     Console.WriteLine(exc.ToString());
                 }
-               // Console.ReadLine();
+                System.Environment.Exit(0);
+                // Console.ReadLine();
             }
             Console.WriteLine("Zakończono tworzenie backup bazy");
 

@@ -9,26 +9,23 @@ namespace SparkSQLbackup
 {
     class Email
     {
-        private string toAddress;
-        private string fromAddress;
-        private string subject;
-        private string smtpServer;
-        private string smtpLogin;
-        private string smtpPassword;
+        
 
         public void SendEmail(string _attachment)
         {
+            var setup = new Setup();
+            setup.SetBackupProperties(System.IO.Directory.GetCurrentDirectory() + "\\config.ini");
             IMail email = Mail
               .Html(@"Html ")
-              .AddAttachment(_attachment).SetFileName("bug.txt")
-              .To("psmiglewski@gmail.com")
-              .From("kontakt@sparktech.com.pl")
+              .AddAttachment(_attachment).SetFileName("bugreport.txt")
+              .To(setup.GetMailReceiver())
+              .From(setup.GetMailFrom())
               .Subject("Database backup bugreport")
               .Create();
             using (Smtp smtp = new Smtp())
             {
-                smtp.Connect("sparktech.com.pl");  // or ConnectSSL for SSL
-                smtp.UseBestLogin("kontakt@sparktech.com.pl", "PIotreck1");
+                smtp.Connect(setup.GetSmtpServer());  // or ConnectSSL for SSL
+                smtp.UseBestLogin(setup.GetSmtpLogin(), setup.GetSmtpPass());
                 smtp.SendMessage(email);
                 smtp.Close();
             }

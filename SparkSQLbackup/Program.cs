@@ -29,7 +29,9 @@ namespace SparkSQLbackup
                 {
                     Console.WriteLine(exc.ToString());
                 }
-               // Console.ReadLine();
+                // Console.ReadLine();
+                System.Environment.Exit(0);
+               
             }
             // string _filePath = path;//"C:\\Temp\\"+ dataBaseName + DateTime.Now.ToString("yyMMddhhmm") + ".bak";
             try
@@ -50,7 +52,8 @@ namespace SparkSQLbackup
                 {
                     Console.WriteLine(exc.ToString());
                 }
-             //   Console.ReadLine();
+                //   Console.ReadLine();
+                System.Environment.Exit(0);
             }
             string dataBaseName = configSetup.GetDataBaseName();
             DataBase dataBase = new DataBase(configSetup.GetConnectionString());
@@ -82,8 +85,8 @@ namespace SparkSQLbackup
                 {
                     Console.WriteLine(exc.ToString());
                 }
-
-              //  Console.ReadLine();
+                System.Environment.Exit(0);
+                //  Console.ReadLine();
             }
           
         }

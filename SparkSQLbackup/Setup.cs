@@ -11,6 +11,11 @@ namespace SparkSQLbackup
         private string connectionString ;
         private string path ;
         private string dataBaseName;
+        private string mailReceiver;
+        private string mailFrom;
+        private string smtpServer;
+        private string smtpLogin;
+        private string smtpPass;
         //private string installationPath;
 
         //public Setup(string _connectionString, string _path)
@@ -48,7 +53,8 @@ namespace SparkSQLbackup
                         Console.WriteLine(ex.ToString());
                         
                     }
-                  //  Console.ReadLine();
+                    //  Console.ReadLine();
+                    System.Environment.Exit(0);
                 }
                 for (int i = 0; i < Name.Length; i++)
                 {
@@ -58,7 +64,11 @@ namespace SparkSQLbackup
                 this.connectionString = list[0];
                 this.path = list[1];
                 this.dataBaseName = list[2];
-                //this.installationPath = list[3];
+                this.mailReceiver = list[3];
+                this.mailFrom = list[4];
+                this.smtpServer = list[5];
+                this.smtpLogin = list[6];
+                this.smtpPass = list[7];
             }
             catch (Exception ex)
             {
@@ -76,6 +86,7 @@ namespace SparkSQLbackup
 
                 }
                 //  Console.ReadKey();
+                System.Environment.Exit(0);
             }
         }
 
@@ -90,6 +101,26 @@ namespace SparkSQLbackup
         public string GetDataBaseName()
         {
             return dataBaseName;
+        }
+        public string GetMailReceiver()
+        {
+            return mailReceiver;
+        }
+        public string GetMailFrom()
+        {
+            return mailFrom;
+        }
+        public string GetSmtpServer()
+        {
+            return smtpServer;
+        }
+        public string GetSmtpLogin()
+        {
+            return smtpLogin;
+        }
+        public string GetSmtpPass()
+        {
+            return smtpPass;
         }
         public string GetInstallationPath()
         {
