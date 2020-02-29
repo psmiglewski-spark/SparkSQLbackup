@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Windows.Forms;
 
 
 namespace SparkSQLbackupWindowsApp
@@ -16,22 +17,13 @@ namespace SparkSQLbackupWindowsApp
         private string smtpServer;
         private string smtpLogin;
         private string smtpPass;
-        //private string installationPath;
-
-        //public Setup(string _connectionString, string _path)
-        // {
-        //   this.connectionString = _connectionString;
-        //   this.path = _path;
-        // }
+        
         
         public void SetBackupProperties(string _filePath)
         {
-          //  string lineOfText;
             try
             {
                 List<string> list = new List<string>();
-                // var filestream = new System.IO.FileStream(_filePath, System.IO.FileMode.Open, System.IO.FileAccess.Read, System.IO.FileShare.ReadWrite);
-                // var file = new System.IO.StreamReader(filestream, System.Text.Encoding.UTF8, true, 128);
                 string[] Name = { " " };
 
                 try
@@ -40,7 +32,7 @@ namespace SparkSQLbackupWindowsApp
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(exc.ToString());
+                    MessageBox.Show(exc.ToString());
                     File.WriteAllText(Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString() + ".txt", exc.ToString());
                     string logPath = Directory.GetCurrentDirectory() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
                     try
@@ -50,16 +42,14 @@ namespace SparkSQLbackupWindowsApp
                     }
                     catch (Exception ex)
                     {
-                        Console.WriteLine(ex.ToString());
+                        MessageBox.Show(ex.ToString());
                         
                     }
-                    //  Console.ReadLine();
-                    System.Environment.Exit(0);
+                    
                 }
                 for (int i = 0; i < Name.Length; i++)
                 {
                     list.Add(Name[i]);
-                    // Console.WriteLine(Name[i]);
                 }
                 this.connectionString = list[0];
                 this.path = list[1];
@@ -82,11 +72,10 @@ namespace SparkSQLbackupWindowsApp
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(exc.ToString());
+                    MessageBox.Show(exc.ToString());
 
                 }
-                //  Console.ReadKey();
-                System.Environment.Exit(0);
+                
             }
         }
 

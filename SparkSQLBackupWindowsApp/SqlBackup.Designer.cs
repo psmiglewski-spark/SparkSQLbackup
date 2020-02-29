@@ -34,7 +34,6 @@
             this.iniConfigBtn = new System.Windows.Forms.Button();
             this.connectioCheckBtn = new System.Windows.Forms.Button();
             this.connectionCheckLbl = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // backupBtn
@@ -100,22 +99,11 @@
             this.connectionCheckLbl.TabIndex = 5;
             this.connectionCheckLbl.Text = "db connection check";
             // 
-            // button1
-            // 
-            this.button1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.button1.Location = new System.Drawing.Point(423, 224);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(176, 28);
-            this.button1.TabIndex = 6;
-            this.button1.Text = "Ustawienia aplikacji";
-            this.button1.UseVisualStyleBackColor = true;
-            // 
             // SparkSqlBackup
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.connectionCheckLbl);
             this.Controls.Add(this.connectioCheckBtn);
             this.Controls.Add(this.iniConfigBtn);
@@ -138,7 +126,6 @@
         private System.Windows.Forms.Button iniConfigBtn;
         private System.Windows.Forms.Button connectioCheckBtn;
         private System.Windows.Forms.Label connectionCheckLbl;
-        private System.Windows.Forms.Button button1;
     }
 }
 

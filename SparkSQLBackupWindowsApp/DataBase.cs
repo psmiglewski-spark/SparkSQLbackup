@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Data.SqlClient;
 using System.IO;
-
+using System.Windows.Forms;
+using System.Threading.Tasks;
+using SparkSQLBackupWindowsApp;
 
 namespace SparkSQLbackupWindowsApp
 {
@@ -16,17 +18,17 @@ namespace SparkSQLbackupWindowsApp
             this.connectionString = _connectionString;
         }
 
-        public void dbBackupAction(string _path)
+        public async Task dbBackupAction(string _path)
         {
-            
+
             Setup setup = new Setup();
             try
             {
-                setup.SetBackupProperties(System.IO.Directory.GetCurrentDirectory() + "\\config.ini");
+               await Task.Run(() => setup.SetBackupProperties(System.IO.Directory.GetCurrentDirectory() + "\\config.ini"));
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.ToString());
                 string logPath = setup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
                 File.WriteAllText(logPath, ex.ToString());
                 try
@@ -36,14 +38,14 @@ namespace SparkSQLbackupWindowsApp
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(exc.ToString());
+                    MessageBox.Show(exc.ToString());
                 }
-                //  Console.ReadLine();
-                System.Environment.Exit(0);
+                
             }
-            Console.WriteLine("Tworzenie backup bazy. Proszę czekać");
+           
             try
             {
+               
                 using (SqlConnection defaultSqlConnection = new SqlConnection(connectionString))
                 {
                     string backupDb = _path;
@@ -58,7 +60,7 @@ namespace SparkSQLbackupWindowsApp
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString());
+                MessageBox.Show(ex.ToString());
                 string logPath = setup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
                 File.WriteAllText(logPath, ex.ToString());
                 try
@@ -68,14 +70,16 @@ namespace SparkSQLbackupWindowsApp
                 }
                 catch (Exception exc)
                 {
-                    Console.WriteLine(exc.ToString());
+                    MessageBox.Show(exc.ToString());
                 }
-                System.Environment.Exit(0);
-                // Console.ReadLine();
+                
+
             }
-            Console.WriteLine("Zakończono tworzenie backup bazy");
+            
+           // MessageBox.Show("Zakończono tworzenie backup bazy");
 
         }
+        
         
 
     }
