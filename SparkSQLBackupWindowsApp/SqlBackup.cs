@@ -22,6 +22,7 @@ namespace SparkSQLBackupWindowsApp
         {
             
             InitializeComponent();
+            connectionCheckLbl.Text = "";
             //string path = " ";
             Setup configSetup = new Setup();
             try
@@ -138,11 +139,50 @@ namespace SparkSQLBackupWindowsApp
             
         }
 
-        private async Task ProgressBar()
+        private void connectioCheckBtn_Click(object sender, EventArgs e)
         {
-            var backupProgress = new BackupProgress();
-            backupProgress.ShowDialog();
+            string path = System.IO.Directory.GetCurrentDirectory() + "\\config.ini";
+            Setup configSetup = new Setup();
+            bool configFileExists = File.Exists(path);
+
+            try
+            {
+                configSetup.SetBackupProperties(path);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+                string logPath = configSetup.GetInstallationPath() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                File.WriteAllText(logPath, ex.ToString());
+                try
+                {
+                    Email email = new Email();
+                    email.SendEmail(logPath);
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.ToString());
+                }
+
+            }
+            //string dataBaseName = configSetup.GetDataBaseName();
+            DataBase dataBase = new DataBase(configSetup.GetConnectionString());
             
+            bool _connectionCheck = dataBase.connectionCheck();
+
+            if (_connectionCheck == true)
+            {
+                this.connectionCheckLbl.ForeColor = Color.Green;
+                this.connectionCheckLbl.Text = "Jest połączenie z bazą";
+            }
+            else
+            {
+                this.connectionCheckLbl.ForeColor = Color.Red;
+                this.connectionCheckLbl.Text = "Brak połączenia z bazą";
+                backupBtn.Enabled = false;
+            }
+
+
         }
     }
 }

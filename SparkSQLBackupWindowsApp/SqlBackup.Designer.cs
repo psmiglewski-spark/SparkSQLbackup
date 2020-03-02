@@ -87,6 +87,7 @@
             this.connectioCheckBtn.TabIndex = 4;
             this.connectioCheckBtn.Text = "Sprawdź połączenie z bazą danych";
             this.connectioCheckBtn.UseVisualStyleBackColor = true;
+            this.connectioCheckBtn.Click += new System.EventHandler(this.connectioCheckBtn_Click);
             // 
             // connectionCheckLbl
             // 

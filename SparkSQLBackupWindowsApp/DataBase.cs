@@ -18,7 +18,7 @@ namespace SparkSQLbackupWindowsApp
             this.connectionString = _connectionString;
         }
 
-        public async Task dbBackupAction(string _path)
+        public async Task dbBackupAction(string _query)
         {
 
             Setup setup = new Setup();
@@ -48,9 +48,9 @@ namespace SparkSQLbackupWindowsApp
                
                 using (SqlConnection defaultSqlConnection = new SqlConnection(connectionString))
                 {
-                    string backupDb = _path;
+                    string backupDbquery = _query;
 
-                    using (SqlCommand backupCommand = new SqlCommand(backupDb, defaultSqlConnection))
+                    using (SqlCommand backupCommand = new SqlCommand(backupDbquery, defaultSqlConnection))
                     {
                         defaultSqlConnection.Open();
                         backupCommand.ExecuteNonQuery();
@@ -76,11 +76,32 @@ namespace SparkSQLbackupWindowsApp
 
             }
             
-           // MessageBox.Show("Zakończono tworzenie backup bazy");
-
+           
         }
         
-        
+        public bool connectionCheck()
+        {
+            bool _check = false;
+            
+           
+                
+                try
+                {
+                    SqlConnection sqlConnection = new SqlConnection(connectionString);
+                    sqlConnection.Open();
+                    return true;
+                    
+                }
+                catch (Exception e)
+                {
+
+                }
+
+                
+            
+            return _check;
+
+        }
 
     }
 }
