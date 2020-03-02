@@ -36,12 +36,13 @@ namespace SparkSQLBackupWindowsApp
                 {
                     this.configCheckLbl.ForeColor = Color.Red;
                     this.configCheckLbl.Text = "Brak config.ini";
+                    backupBtn.Enabled = false;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show(ex.ToString());
-                string logPath = configSetup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                string logPath = configSetup.GetInstallationPath() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
                 File.WriteAllText(logPath, ex.ToString());
                 try
                 {
@@ -80,7 +81,7 @@ namespace SparkSQLBackupWindowsApp
             catch (Exception ex)
             {
                 Console.WriteLine(ex.ToString());
-                string logPath = configSetup.GetInstallationPath() + "faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
+                string logPath = configSetup.GetInstallationPath() + "\\faillog" + DateTime.Now.ToString("yyMMddhhmm") + ".txt";
                 File.WriteAllText(logPath, ex.ToString());
                 try
                 {
