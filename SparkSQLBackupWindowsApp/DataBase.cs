@@ -13,7 +13,7 @@ namespace SparkSQLbackupWindowsApp
     {
         private string connectionString = "";
 
-        public DataBase(string _connectionString)
+        public DataBase(string _connectionString) 
         {
             this.connectionString = _connectionString;
         }
