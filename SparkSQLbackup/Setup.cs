@@ -1,7 +1,9 @@
-﻿using System;
+﻿using SparkSQLBackupWindowsApp;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+
 
 
 namespace SparkSQLbackup
@@ -56,9 +58,9 @@ namespace SparkSQLbackup
                     //  Console.ReadLine();
                     System.Environment.Exit(0);
                 }
-                for (int i = 0; i < Name.Length; i++)
+                foreach (var t in Name)
                 {
-                    list.Add(Name[i]);
+                    list.Add(StringToHash.Decrypt(t, "a"));
                     // Console.WriteLine(Name[i]);
                 }
                 this.connectionString = list[0];

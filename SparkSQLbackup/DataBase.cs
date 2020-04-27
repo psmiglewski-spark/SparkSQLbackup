@@ -41,7 +41,7 @@ namespace SparkSQLbackup
                 //  Console.ReadLine();
                 System.Environment.Exit(0);
             }
-            Console.WriteLine("Tworzenie backup bazy. Proszę czekać");
+          //  Console.WriteLine("Tworzenie backup bazy. Proszę czekać");
             try
             {
                 using (SqlConnection defaultSqlConnection = new SqlConnection(connectionString))
@@ -73,7 +73,7 @@ namespace SparkSQLbackup
                 System.Environment.Exit(0);
                 // Console.ReadLine();
             }
-            Console.WriteLine("Zakończono tworzenie backup bazy");
+           // Console.WriteLine("Zakończono tworzenie backup bazy");
 
         }
         

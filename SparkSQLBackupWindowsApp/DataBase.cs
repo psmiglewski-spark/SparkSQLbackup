@@ -84,7 +84,8 @@ namespace SparkSQLbackupWindowsApp
             bool _check = false;
             
            
-                
+                Setup setup = new Setup();
+                setup.SetBackupProperties(System.IO.Directory.GetCurrentDirectory() + "\\config.ini");
                 try
                 {
                     SqlConnection sqlConnection = new SqlConnection(connectionString);
